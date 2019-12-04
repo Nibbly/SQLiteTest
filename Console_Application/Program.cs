@@ -20,6 +20,8 @@ namespace Console_Application
             CRUDOperation.ReadDataMyDb(sqlite_conn);
 
             Console.ReadKey();
+
+            // TEST COMMIT
         }
     }
 }
