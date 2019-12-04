@@ -10,12 +10,11 @@ namespace SQLite
 {
     public static class DBConnection
     {
-        public static SQLiteConnection CreateConnection()
+        public static SQLiteConnection CreateConnectionMyDb()
         {
-            string databaseName = "TestDatabase.db";
+            string databaseName = "MyDB.db";
 
-            if (!File.Exists(databaseName))
-            {
+
                 SQLiteConnection sqlite_conn;
                 // Create a new database connection:
                 sqlite_conn = new SQLiteConnection($"Data Source={databaseName}; Version = 3; New = True; Compress = True; ");
@@ -29,9 +28,6 @@ namespace SQLite
 
                 }
                 return sqlite_conn;
-            }
-
-            return new SQLiteConnection();
         }
     }
 }
