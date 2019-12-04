@@ -11,7 +11,6 @@ SQLite/obj
 !Console_Application/bin/Debug/x64
 !Console_Application/bin/Debug/x86
 
-Console_Application/bin/Debug
 
 SQLite/bin/Debug/EntityFramework.dll
 SQLite/bin/Debug/EntityFramework.SqlServer.dll
@@ -25,3 +24,19 @@ SQLite/bin/Debug/System.Data.SQLite.dll.config
 SQLite/bin/Debug/System.Data.SQLite.EF6.dll
 SQLite/bin/Debug/System.Data.SQLite.Linq.dll
 SQLite/bin/Debug/System.Data.SQLite.xml
+Console_Application/bin/Debug/Console_Application.exe
+Console_Application/bin/Debug/Console_Application.exe.config
+Console_Application/bin/Debug/Console_Application.pdb
+Console_Application/bin/Debug/EntityFramework.dll
+Console_Application/bin/Debug/EntityFramework.SqlServer.dll
+Console_Application/bin/Debug/EntityFramework.SqlServer.xml
+Console_Application/bin/Debug/EntityFramework.xml
+Console_Application/bin/Debug/SQLite.dll
+Console_Application/bin/Debug/SQLite.dll.config
+Console_Application/bin/Debug/SQLite.pdb
+Console_Application/bin/Debug/System.Data.SQLite.dll
+Console_Application/bin/Debug/System.Data.SQLite.dll.config
+Console_Application/bin/Debug/System.Data.SQLite.EF6.dll
+Console_Application/bin/Debug/System.Data.SQLite.Linq.dll
+Console_Application/bin/Debug/System.Data.SQLite.xml
+Console_Application/bin/Debug/TestDatabase.db
