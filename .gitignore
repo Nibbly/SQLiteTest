@@ -1,0 +1,10 @@
+packages
+Console_Application/bin
+Console_Application/obj
+SQLite/bin
+SQLite/obj
+.vs/SQLite_Test/v15/Server/sqlite3/db.lock
+.vs/SQLite_Test/v15/Server/sqlite3/storage.ide
+.vs/SQLite_Test/v15/Server/sqlite3/storage.ide-shm
+.vs/SQLite_Test/v15/Server/sqlite3/storage.ide-wal
+.vs/SQLite_Test/v15/.suo
