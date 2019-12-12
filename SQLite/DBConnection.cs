@@ -8,26 +8,25 @@ using System.Threading.Tasks;
 
 namespace SQLite
 {
-    public static class DBConnection
+    public class DBConnection
     {
-        public static SQLiteConnection CreateConnectionMyDb()
+        public SQLiteConnection CreateConnection(string dbName)
         {
-            string databaseName = "MyDB.db";
+            string databaseName = dbName;
 
-
-                SQLiteConnection sqlite_conn;
-                // Create a new database connection:
-                sqlite_conn = new SQLiteConnection($"Data Source={databaseName}; Version = 3; New = True; Compress = True; ");
-                // Open the connection:
-                try
-                {
-                    sqlite_conn.Open();
-                }
-                catch (Exception ex)
-                {
-
-                }
-                return sqlite_conn;
+            SQLiteConnection sqlite_conn;
+            // Create a new database connection:
+            sqlite_conn = new SQLiteConnection($"Data Source={databaseName}; Version = 3; New = True; Compress = True; ");
+            // Open the connection:
+            try
+            {
+                sqlite_conn.Open();
+            }
+            catch (Exception ex)
+            {
+                return new SQLiteConnection();
+            }
+            return sqlite_conn;
         }
     }
 }
