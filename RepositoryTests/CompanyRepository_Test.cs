@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using DataAccess;
+using Model;
 using Repositories;
 using SQLite;
 using System;
@@ -14,79 +15,79 @@ namespace RepositoryTests
 
     public class CompanyRepository_Test
     {
-        private DBConnection _dbConnectionCompany;
-        private DBConnection _dbConnectionAddress;
-        private SQLiteConnection _sqliteConnectionCompany;
-        private SQLiteConnection _sqliteConnectionAddress;
-        private SQLiteDataReader _sqliteDatareader;
-        private SQLiteCommand sqlite_cmd;
-
-        public CompanyRepository_Test()
-        {
-            _dbConnectionCompany = HelperMethods.GetConnection();
-            _dbConnectionAddress = HelperMethods.GetConnection();
-        }
-
         [Fact]
         public void ShouldAddCompanyThatIsNotYetInDatabase()
         {
-            using (_sqliteConnectionCompany = HelperMethods.CreateConnection(DatabaseNames.COMPANY_DB_NAME))
-            {
-                using (_sqliteConnectionAddress = HelperMethods.CreateConnection(DatabaseNames.ADDRESS_DB_NAME))
-                {
-                    AddressRepository aRep = new AddressRepository(_sqliteConnectionAddress);
-                    CompanyRepository crep = new CompanyRepository(_sqliteConnectionCompany, aRep);
+            // test setup:
+            // empty database for companies - add 1 item
+            // check if count of all items increased by 1
+            // delete item, so test is always working on a clean database
 
-                    Company company = GetCompany();
-                    crep.Add(company);
+            UnitOfWork unit = new UnitOfWork();
+            unit.CompanyRepository.Add(GetCompany());
+            int numOfItemsAfterAdding = unit.CompanyRepository.GetAll().Count;
+            unit.CompanyRepository.Delete(GetCompany());
 
-                    sqlite_cmd = _sqliteConnectionCompany.CreateCommand();
-                    sqlite_cmd.CommandText = $"SELECT Id FROM Company WHERE Name = '{company.Name}' AND Address = '{aRep.GetId(company.Address)}' AND JuristicalNature = '{(int)company.JuristicalNature}' AND UseFrequency = '{(int)company.UseFrequency}'";
-                    _sqliteDatareader = sqlite_cmd.ExecuteReader();
-
-                    while (_sqliteDatareader.Read())
-                    {
-                        company.Id = _sqliteDatareader.GetInt32(0);
-                    }
-
-                    int numOfRows = crep.GetAll().Count;
-                    crep.Delete(company);
-                    int numOfRowsNew = crep.GetAll().Count;
-
-                    Assert.Equal(numOfRows - 1, numOfRowsNew);
-                }
-            }
+            Assert.Equal(1, numOfItemsAfterAdding);
         }
 
         [Fact]
         public void ShouldNotAddCompanyThatIsAlreadyInDatabase()
         {
-            using (_sqliteConnectionCompany = HelperMethods.CreateConnection(DatabaseNames.COMPANY_DB_NAME))
-            {
-                using (_sqliteConnectionAddress = HelperMethods.CreateConnection(DatabaseNames.ADDRESS_DB_NAME))
-                {
-                    Company comp1 = GetCompany();
-                    CompanyRepository cRep = new CompanyRepository(_sqliteConnectionCompany, new AddressRepository(_sqliteConnectionAddress));
+            UnitOfWork unit = new UnitOfWork();
+            unit.CompanyRepository.Add(GetCompany());
+            unit.CompanyRepository.Add(GetCompany());
+            int numOfItemsAfterAdding = unit.CompanyRepository.GetAll().Count;
+            unit.CompanyRepository.Delete(GetCompany());
 
-                    cRep.Add(comp1);
-
-                    int numOfRows = cRep.GetAll().Count;
-                    cRep.Add(comp1);
-                    int newNumOfRows = cRep.GetAll().Count;
-
-                    Assert.Equal(numOfRows, newNumOfRows);
-                }
-            }
+            Assert.Equal(1, numOfItemsAfterAdding);
         }
+
+        [Fact]
+        public void ShouldDeleteCompany()
+        {
+            UnitOfWork unit = new UnitOfWork();
+            unit.CompanyRepository.Add(GetCompany());
+            int numOfItemsAfterAdding = unit.CompanyRepository.GetAll().Count;
+
+            Assert.Equal(1, numOfItemsAfterAdding);
+
+            Company comp = GetCompany();
+            comp.Id = unit.CompanyRepository.GetId(comp);
+
+            unit.CompanyRepository.Delete(comp);
+            int numOfItemsAfterDeleting = unit.CompanyRepository.GetAll().Count;
+
+            Assert.Equal(0, numOfItemsAfterDeleting);
+        }
+
+        [Fact]
+        public void ShouldUpdateCompany()
+        {
+            UnitOfWork unit = new UnitOfWork();
+            unit.CompanyRepository.Add(GetCompany());
+
+            Company comp = unit.CompanyRepository.GetAll().First();
+            string newCompName = "Changed Company Name";
+            comp.Name = newCompName;
+
+            unit.CompanyRepository.Update(comp);
+            Company newComp = unit.CompanyRepository.FindById(comp.Id);
+
+            Assert.Equal(newCompName, newComp.Name);
+
+            unit.CompanyRepository.Delete(newComp);
+        }
+
 
         private static Address GetAddress()
         {
-            return new Address() { Street = "Neue Straße 2", HouseNumber = "3", PostalCode = "12345", AddressLocality = "London", AdditionalInformation = "Noch was" };
+            return new Address() { Street = "Neue Straße 2", HouseNumber = "3", PostalCode = "12345", City = "London", AdditionalInformation = "Noch was" };
         }
 
         private static Company GetCompany()
         {
-            return new Company() { Name = "Dummy Comp", Address = GetAddress(), JuristicalNature = JuristicalNature.Company, UseFrequency = UseFrequency.EveryMonth };
+            return new Company() { Name = "Dummy Comp", FirstAddress = GetAddress(), SecondAddress = new Address(), JuristicalNature = JuristicalNature.Company, UseFrequency = UseFrequency.EveryMonth };
         }
     }
 }

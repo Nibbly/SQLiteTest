@@ -9,6 +9,5 @@ namespace SQLite
     public static class DatabaseNames
     {
         public static string COMPANY_DB_NAME = "CompanyDB.db";
-        public static string ADDRESS_DB_NAME = "AddressDB.db";
     }
 }

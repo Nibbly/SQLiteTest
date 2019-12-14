@@ -85,6 +85,10 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{9A05B92E-7C9C-4D97-B623-0E6F00180471}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E064E43D-CA09-4D95-B141-55F490C10E5A}</Project>
       <Name>Model</Name>

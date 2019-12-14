@@ -10,7 +10,7 @@ namespace Repositories
 {
     public abstract class GenericRepository<T> : IRepository<T> where T : IEntity
     {
-        protected SQLiteConnection _connection;
+        protected SQLiteConnection _context;
 
         public abstract void Add(T entity);
 
@@ -30,32 +30,30 @@ namespace Repositories
             try
             {
                 SQLiteCommand sqlite_cmd;
-                sqlite_cmd = _connection.CreateCommand();
+                sqlite_cmd = _context.CreateCommand();
                 sqlite_cmd.CommandText = query;
                 sqlite_cmd.ExecuteNonQuery();
             }
-            catch (Exception e)
-            {
-                //TODO logging
-            }
+            catch (Exception e) { }
         }
 
         protected string GetTableName()
         {
             string query = "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY 1";
-            SQLiteCommand cmd = _connection.CreateCommand();
+            SQLiteCommand cmd = _context.CreateCommand();
             cmd.CommandText = query;
             SQLiteDataReader sqlite_datareader;
             sqlite_datareader = cmd.ExecuteReader();
 
             return sqlite_datareader.GetValues()[0];
+
         }
 
         protected SQLiteDataReader GetSQLiteDataReader(string command)
         {
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
-            sqlite_cmd = _connection.CreateCommand();
+            sqlite_cmd = _context.CreateCommand();
             sqlite_cmd.CommandText = command;
             sqlite_datareader = sqlite_cmd.ExecuteReader();
 

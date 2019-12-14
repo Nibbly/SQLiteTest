@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressRepository.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IRepository.cs" />
