@@ -10,3 +10,9 @@ C:\Users\Fabian\Desktop\Coding Projects\SQLiteTest\Model\obj\Debug\Model.csprojA
 C:\Users\Fabian\Desktop\Coding Projects\SQLiteTest\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 C:\Users\Fabian\Desktop\Coding Projects\SQLiteTest\Model\obj\Debug\Model.dll
 C:\Users\Fabian\Desktop\Coding Projects\SQLiteTest\Model\obj\Debug\Model.pdb
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\bin\Debug\Model.dll
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\bin\Debug\Model.pdb
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\obj\Debug\Model.csprojAssemblyReference.cache
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\obj\Debug\Model.dll
+C:\Users\fabia\Desktop\Coding Projects\SQLite\SQLiteTest\SQLiteTest\Model\obj\Debug\Model.pdb

@@ -17,14 +17,34 @@ namespace Console_Application
     {
         static void Main(string[] args)
         {
-            UnitOfWork unit = new UnitOfWork();
+            SQLiteConnection _context = new SQLiteConnection(ConnectionsStrings.COMPANY_DB_CONNECTIONSTRING);
+
+            _context.Open();
+
+            string query = "select name from pragma_table_info('Company')";
+            SQLiteCommand cmd = _context.CreateCommand();
+            cmd.CommandText = query;
+            SQLiteDataReader sqlite_datareader;
+            sqlite_datareader = cmd.ExecuteReader();
+
+            List<string> columns = new List<string>();
+
+            while (sqlite_datareader.Read())
+            {
+                string col = sqlite_datareader.GetValues()[0];
+                columns.Add(col);
+            }
+
+            Console.ReadKey();
+            
+            //UnitOfWork unit = new UnitOfWork();
 
 
-            Company c = new Company() { Name = "Aquilas", FirstAddress = GetAddress(), SecondAddress = new Address(), JuristicalNature = JuristicalNature.Company, UseFrequency = UseFrequency.TwoTimesAYear };
+            //Company c = new Company() { Name = "Aquilas", FirstAddress = GetAddress(), SecondAddress = new Address(), JuristicalNature = JuristicalNature.Company, UseFrequency = UseFrequency.TwoTimesAYear };
 
-            //unit.CompanyRepository.Add(c);
+            ////unit.CompanyRepository.Add(c);
 
-            unit.CompanyRepository.Delete(c);
+            //unit.CompanyRepository.Delete(c);
 
 
 
